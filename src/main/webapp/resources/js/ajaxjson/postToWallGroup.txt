@@ -1,0 +1,66 @@
+$(document)
+		.ready(
+				function() {
+//					$(function() {
+//						var token = $("meta[name='_csrf']").attr("content");
+//						var header = $("meta[name='_csrf_header']").attr("content");
+//						$(document).ajaxSend(function(e, xhr, options) {
+//							xhr.setRequestHeader(header, token);
+//						});
+//					});
+//					$(document)
+//							.on(
+//									"click",
+//									"#postToWallGroup",
+//									function(e) {
+//										e.preventDefault();
+//									
+//										// if you Transaction ajax
+//										$.ajax({
+//													type : 'post',
+//													url : 'postToWallGroupJson',
+//													data : "",
+//													datatype : 'json',
+//													success : function(data) {
+//														console.log(data);
+//														if (data.login == true) {
+//															if (data.success == true) {
+//																alert("Success!!! "+ data.message);
+//															
+//															} else {
+//																alert("Fail!!!" + data.message);
+//
+//															}
+//														} else {
+//															window.location.href = 'login';
+//														}
+//													},
+//													error : function(a, b, c) {
+//														alert("Fail:"
+//																+ "Post TO Group");
+//																									
+//														console.log(a);
+//													}
+//												});
+//
+//									});
+					$("#postToWallGroup").click(function(event) {
+						$.ajax({
+
+							url : "postToWallGroupJson",
+							type : "post",
+							data:"",
+							datatype : "json",
+							timeout : 3000,
+							success : function(data) {
+								console.log(data);
+								alert(data);
+							},
+							error : function() {
+								console.log(data);
+								alert("success");
+							}
+						});
+					});
+				
+				});

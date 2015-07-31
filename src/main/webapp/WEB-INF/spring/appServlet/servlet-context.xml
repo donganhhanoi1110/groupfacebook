@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+      ">
+	<!--For Annotation @Autowired ... -->
+	<context:annotation-config />
+	<!-- Scan controller -->
+	<context:component-scan base-package="org.springframework.social.controller"></context:component-scan>
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+	<tx:annotation-driven />
+	<!-- Use @Controller annotations for MVC controller definitions -->
+
+	<default-servlet-handler />
+
+	<interceptors>
+		<beans:bean
+			class="org.springframework.social.user.UserInterceptor">
+			<beans:constructor-arg ref="usersConnectionRepository" />
+		</beans:bean>
+	</interceptors>
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<!-- Imports user-defined @Controller beans that process client requests -->
+	<beans:import resource="controllers.xml" />
+
+	<!--Configure Database Entity Manager -->
+	<!-- MySQL Datasource with Commons DBCP connection pooling -->
+	<beans:bean class="org.apache.commons.dbcp.BasicDataSource"
+		id="dataSource" name="dataSource">
+		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<beans:property name="url" value="jdbc:mysql://localhost/thesis?useUnicode=yes&amp;characterEncoding=UTF-8" />
+		<beans:property name="username" value="root" />
+		<beans:property name="password" value="" />
+	</beans:bean>
+
+	<!-- EntityManagerFactory -->
+	<beans:bean
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		id="entityManagerFactory">
+		<beans:property name="persistenceUnitName" value="persistenceUnit" />
+		<beans:property name="dataSource" ref="dataSource" />
+
+	</beans:bean>
+
+	<!-- Transaction Manager -->
+	<beans:bean class="org.springframework.orm.jpa.JpaTransactionManager"
+		id="transactionManager">
+		<beans:property name="entityManagerFactory" ref="entityManagerFactory" />
+	</beans:bean>
+
+	<!--Declare DAO, and Service for Spring can understand that you are using 
+		that -->
+	<!--Post -->
+	<beans:bean name="PostFacebookDAO" class="org.springframework.social.dao.PostFacebookDAO"></beans:bean>
+	<beans:bean name="PostFacebookService"
+		class="org.springframework.social.service.PostFacebookService"></beans:bean>
+	<!--GroupFace -->
+	<beans:bean name="groupFaceDAO" class="org.springframework.social.dao.GroupFaceDAO"></beans:bean>
+	<beans:bean name="groupFaceService"
+		class="org.springframework.social.service.GroupFaceService"></beans:bean>
+	<!--Big Group Face -->
+	<beans:bean name="bigGroupFaceDAO" class="org.springframework.social.dao.BigGroupFaceDAO"></beans:bean>
+	<beans:bean name="bigGroupFaceService"
+		class="org.springframework.social.service.BigGroupFaceService"></beans:bean>
+	
+	<!-- Comment Face -->
+	<beans:bean name="CommentFacebookDAO" class="org.springframework.social.dao.CommentFacebookDAO"></beans:bean>
+	<beans:bean name="CommentFacebookService"
+		class="org.springframework.social.service.CommentFacebookService"></beans:bean>
+		
+	<!-- User-->
+	<beans:bean name="userDAO" class="org.springframework.social.dao.UserDAO"></beans:bean>
+	<beans:bean name="userService"
+		class="org.springframework.social.service.UserService"></beans:bean>
+	<!--Schedule  -->		
+		<beans:bean name="scheduleDAO" class="org.springframework.social.dao.ScheduleDAO"></beans:bean>
+	<beans:bean name="scheduleService"
+		class="org.springframework.social.service.ScheduleService"></beans:bean>
+		
+	<!--Notification  -->
+		<beans:bean name="notificationDAO" class="org.springframework.social.dao.NotificationDAO"></beans:bean>
+	<beans:bean name="notificationService"
+		class="org.springframework.social.service.NotificationService"></beans:bean>
+		<!--MemberGroup  -->
+		<beans:bean name="memberGroupDAO" class="org.springframework.social.dao.MemberGroupDAO"></beans:bean>
+	<beans:bean name="memberGroupService"
+		class="org.springframework.social.service.MemberGroupService"></beans:bean>
+		<!--Uploaded FIle Response  -->
+		<beans:bean name="uploadedFileResponseDAO" class="org.springframework.social.dao.UploadedFileResponseDAO"></beans:bean>
+	<beans:bean name="uploadedFileResponseService"
+		class="org.springframework.social.service.UploadedFileResponseService"></beans:bean>
+		
+		<!--For Facebook Service -->
+	<beans:bean name="facebookService"
+		class="org.springframework.social.service.FacebookService"></beans:bean>
+			<!--For Facebook4J Service -->
+	<beans:bean name="facebook4JService"
+		class="org.springframework.social.service.Facebook4JService"></beans:bean>
+
+	<!-- FOr job Schedule -->
+	<beans:bean name="runMeJob"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<beans:property name="jobClass" value="org.springframework.social.job.RunMeJob"></beans:property>
+		<beans:property name="durability" value="true" />
+		<beans:property name="jobDataAsMap">
+			<beans:map>
+				<beans:entry key="facebook4JService" value-ref="facebook4JService"></beans:entry>
+			</beans:map>
+		</beans:property>
+
+	</beans:bean>
+
+<!-- <beans:bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+      <beans:property name="scopes">
+          <beans:map>
+              <beans:entry key="thread-inherited">
+                  <beans:bean class="org.mael.spring.context.support.SimpleInheritableThreadScope"/>
+              </beans:entry>
+          </beans:map>
+      </beans:property>
+  </beans:bean> -->
+
+	<!-- Simple Trigger, run every 5 seconds -->
+	<beans:bean id="simpleTrigger"
+		class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<beans:property name="jobDetail" ref="runMeJob" />
+		<beans:property name="repeatInterval" value="20000" />
+		<beans:property name="startDelay" value="10000" />
+	</beans:bean>
+	<!-- get Context to select bean from DAO and Service -->
+	<beans:bean id="applicationContextProvder" class="org.springframework.social.job.ApplicationContextProvider" />
+
+
+	<beans:bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+
+		<beans:property name="jobDetails">
+			<beans:list>
+				<beans:ref bean="runMeJob" />
+			</beans:list>
+		</beans:property>
+
+		<beans:property name="triggers">
+			<beans:list>
+				<beans:ref bean="simpleTrigger" />
+
+			</beans:list>
+		</beans:property>
+
+	</beans:bean>
+</beans:beans>
