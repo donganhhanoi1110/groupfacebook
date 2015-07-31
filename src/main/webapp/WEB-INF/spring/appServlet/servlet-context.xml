@@ -56,7 +56,7 @@
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<beans:property name="url" value="jdbc:mysql://localhost/thesis?useUnicode=yes&amp;characterEncoding=UTF-8" />
 		<beans:property name="username" value="root" />
-		<beans:property name="password" value="" />
+		<beans:property name="password" value="root" />
 	</beans:bean>
 
 	<!-- EntityManagerFactory -->

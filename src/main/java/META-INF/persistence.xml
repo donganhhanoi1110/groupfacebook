@@ -5,7 +5,7 @@
 	<persistence-unit name="persistenceUnit"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		
+
 		<class>org.springframework.social.model.PostFacebook</class>
 		<class>org.springframework.social.model.CommentFacebook</class>
 		<class>org.springframework.social.model.GroupFace</class>
