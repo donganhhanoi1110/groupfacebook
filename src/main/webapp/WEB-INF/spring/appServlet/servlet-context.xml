@@ -51,7 +51,7 @@
 
 	<!--Configure Database Entity Manager -->
 	<!-- MySQL Datasource with Commons DBCP connection pooling -->
-	<!-- <beans:bean class="java.net.URI" id="dbUrl">
+	 <beans:bean class="java.net.URI" id="dbUrl">
     <beans:constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>
 	</beans:bean>
 
@@ -59,7 +59,7 @@
 		<beans:property name="url" value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }"/>
 		<beans:property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
 		<beans:property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
-	</beans:bean> -->
+	</beans:bean> 
 
 
 	<!-- EntityManagerFactory -->
