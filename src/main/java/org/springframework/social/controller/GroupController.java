@@ -1189,8 +1189,8 @@ public class GroupController {
 		String clientId=facebookProfile.getId();
 		List<Notification> listNotifi = null;
 		try {
-		//	listNotifi = facebook4J.getNotificationsGroup(clientId);			
-			listNotifi = notisService.getNotisByClientIdAndUnread(clientId, true);
+			listNotifi = facebook4J.getNotificationsGroup(clientId);			
+		//	listNotifi = notisService.getNotisByClientIdAndUnread(clientId, true);
 		} catch( Exception e) {
 			response.setMessage("Fail "+ e.getMessage());
 			response.setSuccess(false);

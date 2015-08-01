@@ -86,7 +86,7 @@ $(document)
 			});//close ajax
 		} //close var callRepeat
 			
-	setInterval(callRepeat,5000);
+	//setInterval(callRepeat,5000);
 	 
 });// close document.ready
 //load page in first time
