@@ -38,6 +38,7 @@ public class UserDAO {
 		} catch (Exception e) {
 			System.out.println("\nGet Error " + "*_" + e.getMessage() + "*_");
 			e.printStackTrace();
+			System.err.println("Error: "+e.getMessage()+"_ Cause by:"+e.getCause());
 		}
 		return list;
 
@@ -57,6 +58,7 @@ public class UserDAO {
 			System.out.println("\nGet Error with Create User " + "*_"
 					+ e.getMessage() + "*_");
 			e.printStackTrace();
+			System.err.println("Error: "+e.getMessage()+"_ Cause by:"+e.getCause());
 		}
 		return check;
 	}
@@ -74,6 +76,7 @@ public class UserDAO {
 			System.out.println("\nUpdate User get Error " + "*_"
 					+ e.getMessage() + "*_");
 			e.printStackTrace();
+			System.err.println("Error: "+e.getMessage()+"_ Cause by:"+e.getCause());
 		}
 		return check;
 	}
@@ -100,6 +103,7 @@ public class UserDAO {
 			System.out.println("\nDelete User by ID get Error " + "*_"
 					+ e.getMessage() + "*_");
 			e.printStackTrace();
+			System.err.println("Error: "+e.getMessage()+"_ Cause by:"+e.getCause());
 		}
 		return check;
 	}
@@ -163,6 +167,7 @@ public class UserDAO {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				System.err.println("Error: "+e.getMessage()+"_ Cause by:"+e.getCause());
 				return false;
 			}
 		}
