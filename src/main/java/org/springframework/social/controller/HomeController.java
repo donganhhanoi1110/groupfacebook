@@ -209,15 +209,15 @@ public class HomeController {
 			req.getSession().setAttribute("facebook4JSession", facebook4J);
 			// facebook4J.getFacebook().setOAuthAccessToken(accessToken);
 			// Check if user in db or not, if not insert to db
-//			if (!userService.isExistUserId(facebookProfile.getId())) {
-//				userService.createUser(new User(0, facebookProfile.getId(),
-//						null, null, accessToken.getToken(),facebookProfile.getName()));
-//			}
-//			User user = this.userService.getUserByUserId(facebookProfile
-//					.getId());
-//			HttpSession session = req.getSession();
-//			session.setAttribute("USER", user);
-//			addAllGroup(user);
+			if (!userService.isExistUserId(facebookProfile.getId())) {
+				userService.createUser(new User(0, facebookProfile.getId(),
+						null, null, accessToken.getToken(),facebookProfile.getName()));
+			}
+			User user = this.userService.getUserByUserId(facebookProfile
+					.getId());
+			HttpSession session = req.getSession();
+			session.setAttribute("USER", user);
+			addAllGroup(user);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
