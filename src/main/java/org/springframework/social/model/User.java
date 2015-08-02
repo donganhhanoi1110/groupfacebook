@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -27,7 +28,7 @@ import javax.persistence.UniqueConstraint;
  *
  */
 @Entity
-@Table(name = "user", uniqueConstraints = {
+@Table(name = "appUser", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "user_name"), @UniqueConstraint(columnNames = "user_id")})
 public class User implements Serializable  {
 
@@ -37,7 +38,7 @@ public class User implements Serializable  {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	@Column(name = "id")
 	private int id;
 	
@@ -60,7 +61,7 @@ public class User implements Serializable  {
 	@Column(name = "access_token",columnDefinition="text")
 	private String accessToken;
 	
-	@Column(name = "user_facebook_fullname")
+	@Column(name = "fullname")
 	private String userFacebookFullName;
 	
 	@OneToMany(mappedBy = "userId",fetch = FetchType.EAGER)
