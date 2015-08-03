@@ -196,7 +196,7 @@ public class HomeController {
 		if (!facebookService.getFacebook().isAuthorized()) {
 			return new ModelAndView("redirect:/signin/facebook");
 		}
-		ModelAndView modelView = new ModelAndView("redirect:/applogin");
+		ModelAndView modelView = new ModelAndView("redirect:/home");
 		String code = req.getParameter("code");
 		try {
 			// Get User Profile
